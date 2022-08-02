@@ -1,0 +1,41 @@
+{% extends "layout.html" %}
+{% load static from staticfiles %}
+
+{% block title %}Profile | {{ user }} {{ super }}{% endblock %}
+
+{% block body %}
+    <h1>Profile</h1>
+    <div class="grid-20">
+        <img src="https://www.w3schools.com/bootstrap4/img_avatar5.png" alt="No image" height="100vh"; width="100%">
+        <ul>
+            <li class="list-group-item"><a href="{% url 'accounts:edit_profile' %}">Edit Profile</a></li>
+            <li class="list-group-item"><a href="{% url 'accounts:change_password' %}">Change Password</a></li>
+            <li class="list-group-item"><a href="{% url 'accounts:profile' %}">Preview My Profile</a></li>
+            <li class="list-group-item"><a href="{% url 'accounts:profile' %}">Check Updates<span class="badge badge-primary badge-pill">0</span></a></li>            
+
+        </ul>
+    </div>
+    <div class="grid-80">
+        {% if not profile.first_name %}
+            <p>Your profile empty.</p>
+            <a href="{% url 'accounts:edit_profile' %}">Add some info</a>
+        {% else %}
+            <div class="grid-50">
+                <p><span class="underline">First Name</span>: {{ profile.first_name }}</p>
+                <p><span class="underline">Email</span>: {{ profile.email }}</p>
+                <p><span class="underline">Village</span>: {{ profile.village }}</p>
+                <p><span class="underline">Phone</span>: {{ profile.phone_number }}</p>
+                <!-- <p><span class="underline">Country</span>: {{ profile.country }}</p> -->
+            </div>
+            <div class="grid-50">
+                <p><span class="underline">Last Name</span>: {{ profile.last_name }}</p>
+                <p><span class="underline">Birth Date</span>: {{ profile.birth_date }}</p>
+                <!-- <p><span class="underline">Favorite Animal</span>: {{ profile.favorite_animal }}</p>
+                <p><span class="underline">Hobby</span>: {{ profile.hobby }}</p> -->
+            </div>
+            <div class="grid-100">
+                <p><span class="underline">Bio</span>: {{ profile.bio|safe }}</p>
+            </div>
+        {% endif %}
+    </div>
+{% endblock %}
